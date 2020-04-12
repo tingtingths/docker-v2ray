@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install curl -y
 RUN curl -L -o /tmp/go.sh https://install.direct/go.sh
 RUN chmod +x /tmp/go.sh
-RUN /tmp/go.sh --version 'v4.22.1'
+RUN /tmp/go.sh --version 'v4.23.1'
 
 FROM alpine:3.11.2
 
