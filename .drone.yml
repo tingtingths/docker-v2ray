@@ -1,12 +1,45 @@
 kind: pipeline
 type: docker
-name: default
+name: linux-amd64
 
 trigger:
   branch:
   - master
   event:
   - tag
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build-and-push
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: tingtingths/v2ray
+    tag:
+    - latest
+    - ${DRONE_TAG}
+
+---
+
+kind: pipeline
+type: docker
+name: linux-arm
+
+trigger:
+  branch:
+  - master
+  event:
+  - tag
+
+platform:
+  os: linux
+  arch: arm
 
 steps:
 - name: build-and-push
