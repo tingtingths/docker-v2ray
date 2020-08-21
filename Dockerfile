@@ -12,7 +12,9 @@ RUN curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/
     curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh && \
     chmod +x *.sh
 
-RUN mkdir -p /sbin/init/systemd && \
+RUN touch /bin/systemd && \
+    rm /sbin/init && \
+    ln -s /bin/systemd /sbin/init && \
     ./install-release.sh --version ${VERSION}
 
 FROM alpine:3
