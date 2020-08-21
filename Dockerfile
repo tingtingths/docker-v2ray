@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS builder
+FROM alpine:3 AS builder
 
 ENV VERSION v4.27.0
 
@@ -6,8 +6,7 @@ RUN mkdir -p /v2ray_install
 
 WORKDIR /v2ray_install
 
-RUN apt-get update && apt-get install -y \
-    curl
+RUN apk update && apk add curl bash
 
 RUN curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh && \
     curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh && \
@@ -16,7 +15,7 @@ RUN curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/
 RUN mkdir -p /sbin/init/systemd && \
     ./install-release.sh --version ${VERSION}
 
-FROM alpine:3.11.2
+FROM alpine:3
 
 EXPOSE 10086
 
