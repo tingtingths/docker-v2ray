@@ -1,4 +1,4 @@
-FROM alpine:3 AS builder
+FROM ubuntu:18.04 AS builder
 
 ENV VERSION v4.27.0
 
@@ -6,18 +6,17 @@ RUN mkdir -p /v2ray_install
 
 WORKDIR /v2ray_install
 
-RUN apk update && apk add curl bash
+RUN apt-get update && apt-get install -y \
+    curl
 
 RUN curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh && \
     curl -L -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh && \
     chmod +x *.sh
 
-RUN touch /bin/systemd && \
-    rm /sbin/init && \
-    ln -s /bin/systemd /sbin/init && \
+RUN mkdir -p /sbin/init/systemd && \
     ./install-release.sh --version ${VERSION}
 
-FROM alpine:3
+FROM alpine:3.11.2
 
 EXPOSE 10086
 
