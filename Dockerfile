@@ -1,6 +1,6 @@
 FROM ubuntu:18.04 AS builder
 
-ENV VERSION v4.27.5
+ENV VERSION v4.31.0
 
 RUN mkdir -p /v2ray_install
 
