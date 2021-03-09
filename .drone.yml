@@ -3,8 +3,6 @@ type: docker
 name: linux-amd64
 
 trigger:
-  branch:
-  - master
   event:
   - tag
 
